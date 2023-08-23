@@ -57,10 +57,7 @@ class AdsPageState extends State<AdsPage> {
     /// please add your own device testingId
     /// (testingId will print in console if you don't provide  )
     FacebookAudienceNetwork.init(
-      //this parameer use when tesing perform
-      testingId: "a77955ee-3304-4635-be65-81029b0f5201",
-      iOSAdvertiserTrackingEnabled: true,
-    );
+        testingId: "0eb2b65c-6b9c-4a80-8713-c51d10e1a8a1");
 
     _loadInterstitialAd();
     _loadRewardedVideoAd();
@@ -68,8 +65,10 @@ class AdsPageState extends State<AdsPage> {
 
   void _loadInterstitialAd() {
     FacebookInterstitialAd.loadInterstitialAd(
-     //this is your placement id how it create we will show in end of video
-      placementId: Platform.isAndroid?"876616926981816_876617470315095":"ios placement id",
+      //this is your placement id how it create we will show in end of video
+      placementId: Platform.isAndroid
+          ? "3547050492249770_3547050788916407"
+          : "1698061277334331_1698061574000968",
       //this is listerner
       listener: (result, value) {
         print(">> FAN > Interstitial Ad: $result --> $value");
@@ -90,19 +89,19 @@ class AdsPageState extends State<AdsPage> {
   void _loadRewardedVideoAd() {
     FacebookRewardedVideoAd.loadRewardedVideoAd(
       //rewarded need original ad id
-      placementId: "876616926981816_876617673648408",
+      placementId: "3547050492249770_3547050788916407",
       listener: (result, value) {
         print("Rewarded Ad: $result --> $value");
         if (result == RewardedVideoAdResult.LOADED) _isRewardedAdLoaded = true;
         if (result == RewardedVideoAdResult.VIDEO_COMPLETE)
 
-          /// Once a Rewarded Ad has been closed and becomes invalidated,
-          /// load a fresh Ad by calling this function.
-          if (result == RewardedVideoAdResult.VIDEO_CLOSED &&
-              (value == true || value["invalidated"] == true)) {
-            _isRewardedAdLoaded = false;
-            _loadRewardedVideoAd();
-          }
+        /// Once a Rewarded Ad has been closed and becomes invalidated,
+        /// load a fresh Ad by calling this function.
+        if (result == RewardedVideoAdResult.VIDEO_CLOSED &&
+            (value == true || value["invalidated"] == true)) {
+          _isRewardedAdLoaded = false;
+          _loadRewardedVideoAd();
+        }
       },
     );
   }
@@ -190,8 +189,7 @@ class AdsPageState extends State<AdsPage> {
     setState(() {
       _currentAd = FacebookBannerAd(
         // placementId: "YOUR_PLACEMENT_ID",
-        placementId:
-        "876616926981816_876617423648433", //testid
+        placementId: "3547050492249770_3547050788916407", //testid
         //size of banner ad
         bannerSize: BannerSize.STANDARD,
         listener: (result, value) {
@@ -211,7 +209,7 @@ class AdsPageState extends State<AdsPage> {
     return FacebookNativeAd(
       // placementId: "YOUR_PLACEMENT_ID",
       //just use type a bannertype
-      placementId: "876616926981816_876617780315064",
+      placementId: "3547050492249770_3547050788916407",
       adType: NativeAdType.NATIVE_BANNER_AD,
       bannerAdSize: NativeBannerAdSize.HEIGHT_100,
       width: double.infinity,
@@ -235,7 +233,7 @@ class AdsPageState extends State<AdsPage> {
 
   Widget _nativeAd() {
     return FacebookNativeAd(
-      placementId: "876616926981816_876617780315064",
+      placementId: "3547050492249770_3547050788916407",
       adType: NativeAdType.NATIVE_AD_VERTICAL,
       width: double.infinity,
       height: 300,
